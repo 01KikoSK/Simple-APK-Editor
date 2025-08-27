@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced APK Editor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #2b2b2b;
+            border: 1px solid #444;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #333;
+            border-bottom: 1px solid #444;
+            color: #fff;
+            font-weight: bold;
+        }
+        .btn-primary, .btn-secondary {
+            border: none;
+        }
+        .form-label {
+            color: #ccc;
+        }
+        .form-control, .form-select {
+            background-color: #3e3e3e;
+            color: #e0e0e0;
+            border: 1px solid #555;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #4e4e4e;
+            color: #fff;
+            box-shadow: none;
+            border-color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mb-4">APK Editor</h1>
+    
+    <div class="card">
+        <div class="card-header">
+            Select an Installed App
+        </div>
+        <div class="card-body">
+            <p>Select an APK from your list of installed applications on Windows 11.</p>
+            <div class="mb-3">
+                <label for="appSelect" class="form-label">Installed Applications</label>
+                <select id="appSelect" class="form-select">
+                    <option selected disabled>Select an app...</option>
+                    <option value="com.example.app1">Example App 1</option>
+                    <option value="com.example.app2">Example App 2</option>
+                    <option value="com.example.game">Example Game</option>
+                </select>
+            </div>
+            <button id="selectAppBtn" class="btn btn-primary">Select App</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Simple Editing
+        </div>
+        <div class="card-body">
+            <form id="simpleEditForm">
+                <div class="mb-3">
+                    <label for="appName" class="form-label">App Name</label>
+                    <input type="text" class="form-control" id="appName" placeholder="Enter new app name">
+                </div>
+                <div class="mb-3">
+                    <label for="appIcon" class="form-label">App Icon</label>
+                    <input class="form-control" type="file" id="appIcon" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-primary">Apply Simple Edits</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Advanced File Editing
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="files-tab" data-bs-toggle="tab" data-bs-target="#files" type="button" role="tab" aria-controls="files" aria-selected="true">Files</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="images-tab" data-bs-toggle="tab" data-bs-target="#images" type="button" role="tab" aria-controls="images" aria-selected="false">Images</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio" type="button" role="tab" aria-controls="audio" aria-selected="false">Audio</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="files" role="tabpanel" aria-labelledby="files-tab">
+                    <h5 class="mt-3">Edit Text Files (e.g., XML, configs)</h5>
+                    <div class="mb-3">
+                        <select id="fileSelect" class="form-select mb-2">
+                            <option selected disabled>Select a file to edit...</option>
+                        </select>
+                        <textarea id="fileContent" class="form-control" rows="10" placeholder="File content will appear here..."></textarea>
+                    </div>
+                    <button id="saveFileBtn" class="btn btn-primary">Save Changes</button>
+                </div>
+                
+                <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                    <h5 class="mt-3">Manage Images</h5>
+                    <div class="row" id="imageList">
+                        </div>
+                    <div class="mb-3 mt-3">
+                        <label for="imageUpload" class="form-label">Add/Replace Image</label>
+                        <input class="form-control" type="file" id="imageUpload" multiple accept="image/*">
+                    </div>
+                    <button id="uploadImageBtn" class="btn btn-primary">Upload Images</button>
+                </div>
+                
+                <div class="tab-pane fade" id="audio" role="tabpanel" aria-labelledby="audio-tab">
+                    <h5 class="mt-3">Manage Audio Files</h5>
+                    <div id="audioList" class="list-group">
+                        </div>
+                    <div class="mb-3 mt-3">
+                        <label for="audioUpload" class="form-label">Add/Replace Audio</label>
+                        <input class="form-control" type="file" id="audioUpload" multiple accept="audio/*">
+                    </div>
+                    <button id="uploadAudioBtn" class="btn btn-primary">Upload Audio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Finalize APK
+        </div>
+        <div class="card-body">
+            <p>Once all changes are made, rebuild and sign the APK to make it ready for installation.</p>
+            <button id="rebuildBtn" class="btn btn-success">Rebuild and Sign APK</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // This part would be handled by an Electron/Node.js backend
+        // For example, listing installed apps
+        // const installedApps = await window.electronAPI.getInstalledApps();
+        // Populate the appSelect dropdown with these apps
+        // ...
+
+        document.getElementById('selectAppBtn').addEventListener('click', () => {
+            const selectedApp = document.getElementById('appSelect').value;
+            if (selectedApp) {
+                console.log(`Decompiling ${selectedApp}...`);
+                // Backend call to start decompilation and extraction
+                // window.electronAPI.decompileApp(selectedApp);
+            }
+        });
+
+        document.getElementById('simpleEditForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newName = document.getElementById('appName').value;
+            const newIconFile = document.getElementById('appIcon').files[0];
+            console.log(`Applying simple edits: New Name: ${newName}, New Icon: ${newIconFile ? newIconFile.name : 'None'}`);
+            // Backend call to apply edits to manifest and resources
+            // window.electronAPI.applySimpleEdits(newName, newIconFile);
+        });
+
+        document.getElementById('saveFileBtn').addEventListener('click', () => {
+            const selectedFile = document.getElementById('fileSelect').value;
+            const newContent = document.getElementById('fileContent').value;
+            console.log(`Saving changes to ${selectedFile}`);
+            // Backend call to save the file
+            // window.electronAPI.saveFile(selectedFile, newContent);
+        });
+
+        // The remaining button event listeners would also call backend functions
+        // For example:
+        // document.getElementById('uploadImageBtn').addEventListener('click', ...);
+        // document.getElementById('rebuildBtn').addEventListener('click', ...);
+    });
+</script>
+
+</body>
+</html>
